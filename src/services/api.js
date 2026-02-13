@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://school-server-production-c017.up.railway.app/',
 });
 
 // ✅ Interceptor: automatically attach token to every request
