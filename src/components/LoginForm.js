@@ -15,7 +15,7 @@ const LoginForm = () => {
       alert('Please enter a valid email address');
       return;
     }
-
+    
     try {
       const { data } = await loginUser({ email, password });
       const { token, role, name } = data;
