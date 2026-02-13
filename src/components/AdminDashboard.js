@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
       // Normalize the data
       const normalized = data.map(r => ({
-        id: r.id || r.request_id,
+        id: r._id || r.request_id,
         name: r.student_name || r.name,
         email: r.student_email || r.email,
         status: r.status.charAt(0).toUpperCase() + r.status.slice(1),
