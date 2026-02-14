@@ -1,22 +1,27 @@
-// src/App.js
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { setAuthToken } from './services/api';
 
 import WelcomePage from './pages/WelcomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import StudentPage from './pages/StudentPage';
 import AdminPage from './pages/AdminPage';
-import Navbar from './components/Navbar';  
+import Navbar from './components/Navbar';
 
 function App() {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
+  // set token for axios
+  useEffect(() => {
+    if (token) setAuthToken(token);
+  }, [token]);
+
   return (
     <Router>
-    <Navbar /> {/* Always show navbar */}
+      <Navbar /> {/* Always show navbar */}
       <Routes>
-        {/* Always first */}
         <Route path="/" element={<WelcomePage />} />
 
         {/* Auth */}
@@ -29,7 +34,7 @@ function App() {
           element={
             token && role === 'student'
               ? <StudentPage />
-              : <Navigate to="/student-dashboard" />
+              : <Navigate to="/login" />
           }
         />
 
@@ -38,7 +43,7 @@ function App() {
           element={
             token && role === 'admin'
               ? <AdminPage />
-              : <Navigate to="/admin-dashboard" />
+              : <Navigate to="/login" />
           }
         />
 
