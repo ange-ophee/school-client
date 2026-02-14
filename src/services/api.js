@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // replace with your actual deployed backend URL
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://demo-server-production-a2b9.up.railway.app/', 
+  baseURL: process.env.REACT_APP_API_URL || 'https://demo-server-production-395f.up.railway.app/', 
 });
 
 // Automatically attach token to every request
