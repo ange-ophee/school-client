@@ -12,8 +12,8 @@ export const setAuthToken = (token) => {
 };
 
 // Auth
-export const loginUser = (data) => API.post('/login', data);
-export const registerUser = (data) => API.post('/register', data);
+export const loginUser = (data) => API.post('/auth/login', data);
+export const registerUser = (data) => API.post('/auth/register', data);
 
 // Student
 export const submitRequest = () => API.post('/student/request');
