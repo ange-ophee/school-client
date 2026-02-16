@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { setAuthToken } from '../services/api';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -7,6 +8,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
+    setAuthToken(null);
     navigate('/');
   };
 

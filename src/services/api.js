@@ -2,16 +2,13 @@ import axios from 'axios';
 
 // replace with your actual deployed backend URL
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://demo-server-production-395f.up.railway.app/', 
+  baseURL: 'https://demo-server-production-395f.up.railway.app/', 
 });
 
 // Automatically attach token to every request
 export const setAuthToken = (token) => {
-  if (token) {
-    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  } else {
-    delete API.defaults.headers.common['Authorization'];
-  }
+  if (token) API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  else delete API.defaults.headers.common['Authorization'];
 };
 
 // Auth
