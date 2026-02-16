@@ -24,13 +24,7 @@ const RegisterForm = () => {
 
     try {
       const { data } = await registerUser({ name, email, password, role });
-      const { token, role: userRole, name: userName, message } = data;
-
-      if (!token || !userRole) {
-        alert(message || 'Registration successful. Please login.');
-        navigate('/login');
-        return;
-      }
+      const { token, role: userRole, name: userName } = data;
 
       localStorage.setItem('token', token);
       localStorage.setItem('role', userRole);

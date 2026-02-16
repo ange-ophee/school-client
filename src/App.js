@@ -9,21 +9,14 @@ import StudentPage from './pages/StudentPage';
 import AdminPage from './pages/AdminPage';
 import Navbar from './components/Navbar';
 
-const ProtectedRoute = ({ allowedRole, children }) => {
+function App() {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
-  if (!token) return <Navigate to="/login" replace />;
-  if (role !== allowedRole) return <Navigate to="/login" replace />;
-
-  return children;
-};
-
-function App() {
-  // Restore token once on app boot so protected API calls work after refresh.
+  // set token for axios
   useEffect(() => {
-    setAuthToken(localStorage.getItem('token'));
-  }, []);
+    if (token) setAuthToken(token);
+  }, [token]);
 
   return (
     <Router>
@@ -39,18 +32,18 @@ function App() {
         <Route
           path="/student-dashboard"
           element={
-            <ProtectedRoute allowedRole="student">
-              <StudentPage />
-            </ProtectedRoute>
+            token && role === 'student'
+              ? <StudentPage />
+              : <Navigate to="/login" />
           }
         />
 
         <Route
           path="/admin-dashboard"
           element={
-            <ProtectedRoute allowedRole="admin">
-              <AdminPage />
-            </ProtectedRoute>
+            token && role === 'admin'
+              ? <AdminPage />
+              : <Navigate to="/login" />
           }
         />
 

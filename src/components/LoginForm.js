@@ -20,11 +20,6 @@ const LoginForm = () => {
       const { data } = await loginUser({ email, password });
       const { token, role, name } = data;
 
-      if (!token || !role) {
-        alert('Login response is missing auth data');
-        return;
-      }
-
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
       localStorage.setItem('name', name);
