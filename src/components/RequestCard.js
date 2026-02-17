@@ -5,9 +5,7 @@ const RequestCard = ({ request, onApprove, onReject, isAdmin }) => {
       <p><strong>Status:</strong> {request.status}</p>
       <p>
         <strong>Date:</strong>{' '}
-        {request.createdAt
-          ? new Date(request.createdAt).toLocaleString()
-          : 'N/A'}
+        {new Date(request.request_date).toLocaleDateString()} at {new Date(request.request_date).toLocaleTimeString()}
       </p>
 
       {isAdmin && request.status === 'pending' && (
