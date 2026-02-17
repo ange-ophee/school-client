@@ -18,19 +18,19 @@ const AdminDashboard = () => {
       const { data } = await getAllRequests();
 
       // Normalize the data
-      const normalized = data.map(r => ({
-        id: r._id || r.request_id,
-        name: r.student_name || r.name,
-        email: r.student_email || r.email,
-        status: r.status.charAt(0).toUpperCase() + r.status.slice(1),
-        request_date: r.request_date,
+      const normalized = data.requests.map(r => ({
+        _id: r._id,
+        name: r.student_id?.name,
+        email: r.student_id?.email,
+        status: r.status, // keep lowercase for pending/approved/rejected checks
+        createdAt: r.createdAt || r.request_date,
       }));
 
       setRequests(normalized);
 
       // Populate students table
       setStudents(normalized.map(r => ({
-        id: r.id,
+        id: r._id,
         name: r.name,
         email: r.email,
         status: r.status,
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
     try {
       await approveRequest(id);
       // Update state locally to avoid full refresh
-      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'approved' } : r));
+      setRequests(prev => prev.map(r => r._id === id ? { ...r, status: 'approved' } : r));
       setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'approved' } : s));
     } catch (err) {
       console.error('Error approving request:', err);
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
   const handleReject = async (id) => {
     try {
       await rejectRequest(id);
-      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'rejected' } : r));
+      setRequests(prev => prev.map(r => r._id === id ? { ...r, status: 'rejected' } : r));
       setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
     } catch (err) {
       console.error('Error rejecting request:', err);
@@ -133,7 +133,7 @@ const AdminDashboard = () => {
             <div style={styles.requestGrid}>
               {requests.map(req => (
                 <RequestCard
-                  key={req.id}
+                  key={req._id}
                   request={req}
                   onApprove={handleApprove}
                   onReject={handleReject}

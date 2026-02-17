@@ -11,7 +11,7 @@ const StudentDashboard = () => {
   const fetchRequest = async () => {
     try {
       const { data } = await getRequestStatus();
-      setRequest(data);
+      setRequest(data.requests?.[0] || null);
     } catch (err) {
       console.error(err);
     }
