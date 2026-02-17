@@ -45,8 +45,8 @@ const AdminDashboard = () => {
     try {
       await approveRequest(id);
       // Update state locally to avoid full refresh
-      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'Approved' } : r));
-      setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'Approved' } : s));
+      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'approved' } : r));
+      setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'approved' } : s));
     } catch (err) {
       console.error('Error approving request:', err);
     }
@@ -56,8 +56,8 @@ const AdminDashboard = () => {
   const handleReject = async (id) => {
     try {
       await rejectRequest(id);
-      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'Rejected' } : r));
-      setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'Rejected' } : s));
+      setRequests(prev => prev.map(r => r.id === id ? { ...r, status: 'rejected' } : r));
+      setStudents(prev => prev.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
     } catch (err) {
       console.error('Error rejecting request:', err);
     }
@@ -81,9 +81,9 @@ const AdminDashboard = () => {
 
   // Compute stats
   const total = requests.length;
-  const approved = requests.filter(r => r.status === 'Approved').length;
-  const rejected = requests.filter(r => r.status === 'Rejected').length;
-  const pending = requests.filter(r => r.status === 'Pending').length;
+  const approved = requests.filter(r => r.status === 'approved').length;
+  const rejected = requests.filter(r => r.status === 'rejected').length;
+  const pending = requests.filter(r => r.status === 'pending').length;
 
   return (
     <div style={styles.container}>
